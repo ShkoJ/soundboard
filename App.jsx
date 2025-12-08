@@ -2,25 +2,25 @@ import React, { useState, useRef } from 'react';
 import { Square, Play, Pause } from 'lucide-react';
 
 // DATA CONFIGURATION
-// All files are expected to be in the root public folder
+// Matches the exact file list provided.
+// psa.png covers: psa files, sorry, ba3janoke
+// aland.jpg covers: everything else (including chai, since chai.png was missing)
+
 const soundData = [
-  // PSA Group (Uses psa.png)
+  // --- PSA GROUP (psa.png) ---
   { id: 'psa-brsima', file: 'psa-brsima.mp3', image: 'psa.png', label: 'PSA Brsima' },
   { id: 'psa-brsima-extreme', file: 'psa-brsima-extreme.mp3', image: 'psa.png', label: 'PSA Extreme' },
   { id: 'psa-terbum', file: 'psa-terbum.mp3', image: 'psa.png', label: 'PSA Terbum' },
+  { id: 'psa-dargai-bkawa', file: 'psa-dargai-bkawa.mp3', image: 'psa.png', label: 'PSA Dargai Bkawa' },
   { id: 'sorry', file: 'sorry.mp3', image: 'psa.png', label: 'Sorry' },
   { id: 'ba3janoke', file: 'ba3janoke.mp3', image: 'psa.png', label: 'Ba3janoke' },
   
-  // Chai (Uses chai.png)
-  { id: 'chai', file: 'chai.mp3', image: 'chai.png', label: 'Chai Time' },
-
-  // Aland Group (Everything else uses aland.png)
-  { id: 'supernoworries', file: 'supernoworries.mp3', image: 'aland.png', label: 'Super No Worries' },
-  { id: 'happybirthday', file: 'happybirthday.mp3', image: 'aland.png', label: 'Happy Birthday' },
-  { id: 'kak-hamno', file: 'kak-hamno-zorsupas.mp3', image: 'aland.png', label: 'Kak Hamno Supas' },
-  { id: 'kak-aland', file: 'kak-aland-zorsupas.mp3', image: 'aland.png', label: 'Kak Aland Supas' },
-  { id: 'whistle', file: 'whistle.mp3', image: 'aland.png', label: 'Whistle' },
-  { id: 'ba3', file: 'ba3.mp3', image: 'aland.png', label: 'Ba3' },
+  // --- ALAND GROUP (aland.jpg) ---
+  { id: 'supernoworries', file: 'supernoworries.mp3', image: 'aland.jpg', label: 'Super No Worries' },
+  { id: 'aland-zor-supas', file: 'aland-zor-supas.mp3', image: 'aland.jpg', label: 'Aland Zor Supas' },
+  { id: 'kak-hamno', file: 'kak-hamno-zorsupas.mp3', image: 'aland.jpg', label: 'Kak Hamno Supas' },
+  { id: 'chai', file: 'chai.mp3', image: 'aland.jpg', label: 'Chai Time' },
+  { id: 'ba3', file: 'ba3.mp3', image: 'aland.jpg', label: 'Ba3' },
 ];
 
 const SoundboardApp = () => {
