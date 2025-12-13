@@ -15,10 +15,9 @@ const sounds = [
     { id: 'chai', file: 'chai.mp3', image: 'aland.jpg', label: 'Chai Time' },
     { id: 'ba3', file: 'ba3.mp3', image: 'aland.jpg', label: 'Ba3' },
     
-    // --- NEW ALAND ADDITIONS (Using aland.png as requested) ---
-    // WARNING: You must upload 'aland.png' for these images to show!
-    { id: 'kak-ashty', file: 'kak-ashty-lachen.mp3', image: 'aland.png', label: 'Kak Ashty lachendarin' },
-    { id: 'karox', file: 'karox-xayat.mp3', image: 'aland.png', label: 'Karox Xayat' },
+    // --- NEW ALAND ADDITIONS (Using aland.jpg to fix missing image) ---
+    { id: 'kak-ashty', file: 'kak-ashty-lachen.mp3', image: 'aland.jpg', label: 'Kak Ashty lachendarin' },
+    { id: 'karox', file: 'karox-xayat.mp3', image: 'aland.jpg', label: 'Karox Xayat' },
 
     // --- KHATOON GROUP (khatoon.png) ---
     { id: 'mad-khatoon', file: 'mad-khatoon.mp3', image: 'khatoon.png', label: 'Mad Khatoon' },
@@ -35,7 +34,7 @@ const stopContainer = document.getElementById('stop-container');
 const stopBtn = document.getElementById('stop-btn');
 let currentButtonId = null;
 
-// --- AUDIO CONTEXT SETUP (FOR 5X VOLUME) ---
+// --- AUDIO CONTEXT SETUP ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const currentAudio = new Audio();
 currentAudio.crossOrigin = "anonymous"; 
@@ -44,7 +43,8 @@ currentAudio.crossOrigin = "anonymous";
 const source = audioCtx.createMediaElementSource(currentAudio);
 const gainNode = audioCtx.createGain();
 
-gainNode.gain.value = 5; // <--- 500% VOLUME
+// Initial gain (will be updated on click)
+gainNode.gain.value = 5; 
 
 source.connect(gainNode);
 gainNode.connect(audioCtx.destination);
@@ -73,7 +73,7 @@ sounds.forEach(sound => {
 
 // 4. PLAY FUNCTION
 function playSound(sound) {
-    // Resume AudioContext if suspended (browser policy)
+    // Resume AudioContext if suspended
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
@@ -85,6 +85,13 @@ function playSound(sound) {
     }
 
     stopAll();
+
+    // --- DYNAMIC VOLUME LOGIC ---
+    if (sound.id === 'kak-ashty') {
+        gainNode.gain.value = 15; // 15x Volume for Kak Ashty
+    } else {
+        gainNode.gain.value = 5;  // 5x Volume for everything else
+    }
 
     // Set new sound
     currentButtonId = sound.id;
