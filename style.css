@@ -12,8 +12,8 @@ body {
     color: white;
     min-height: 100vh;
     padding: 15px;
-    padding-bottom: 120px; /* More space for stop button on mobile */
-    overscroll-behavior-y: none; /* Disables pull-to-refresh on some mobile browsers */
+    padding-bottom: 120px;
+    overscroll-behavior-y: none;
 }
 
 .container {
@@ -47,7 +47,7 @@ header {
     text-transform: uppercase;
 }
 
-/* Filter Buttons - Mobile Optimized */
+/* Filter Buttons */
 .filter-container {
     display: flex;
     justify-content: center;
@@ -60,7 +60,7 @@ header {
     background-color: #374151;
     color: #d1d5db;
     border: none;
-    padding: 10px 18px; /* Larger touch target */
+    padding: 10px 18px;
     border-radius: 25px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -82,7 +82,7 @@ header {
 /* Grid Layout */
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cols is best for mobile */
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
 
@@ -104,7 +104,7 @@ header {
     background-color: #1f2937;
     transition: transform 0.1s ease;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-    touch-action: manipulation; /* Improves tap response */
+    touch-action: manipulation;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -135,7 +135,7 @@ header {
     left: 0;
     width: 100%;
     padding: 12px 10px;
-    font-size: 0.95rem; /* Slightly larger for readability */
+    font-size: 0.95rem;
     font-weight: 700;
     color: #f3f4f6;
     text-align: left;
@@ -157,12 +157,6 @@ header {
 
 .sound-btn.playing .label {
     color: #fbbf24;
-}
-
-/* ARGUMENT STATE (Subtle Red Glow - No Emoji) */
-.sound-btn.argument {
-    border-color: #ef4444; /* Red border */
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); /* Soft red glow */
 }
 
 /* Equalizer Animation */
