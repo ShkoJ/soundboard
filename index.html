@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Iconic Board</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<div class="container">
+    <header>
+        <h1 class="title">TUHAW</h1>
+        <p class="subtitle">BRRRRRRRRRRRRR</p>
+    </header>
 
-    <div class="container">
-        <header>
-            <h1 class="title">TUHAW</h1>
-            <p class="subtitle">BRRRRRRRRRRRRR</p>
-        </header>
-
-        <div id="sound-grid" class="grid">
-            </div>
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="aland">Aland</button>
+        <button class="filter-btn" data-filter="psa">Psa</button>
+        <button class="filter-btn" data-filter="khatoon">Khatoon</button>
     </div>
 
-    <div id="stop-container" class="stop-container hidden">
-        <button id="stop-btn" class="stop-btn">
-            <span class="icon">■</span> STOP
-        </button>
-    </div>
+    <div id="sound-grid" class="grid"></div>
+</div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+<div id="stop-container" class="stop-container hidden">
+    <button id="stop-btn" class="stop-btn">
+        <span class="icon">■</span> STOP
+    </button>
+</div>
