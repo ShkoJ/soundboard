@@ -9,14 +9,15 @@ const sounds = [
     { id: 'psa-dargai-bkawa', file: 'psa-dargai-bkawa.mp3', image: 'psa.png', label: 'PSA Dargai Bkawa', tags: ['psa'] },
     { id: 'sorry', file: 'sorry.mp3', image: 'psa.png', label: 'Sorry', tags: ['psa'] },
     
+    // Moved here from Argument 1.1 - Renamed
+    { id: 'psa-sorry-excuse', file: 'Aland - aland argument 1.1.ogg', image: 'psa.png', label: "Psa's sorry ass excuse", tags: ['psa'] },
+    
     // Ba3janoke / PSA Mixed
     { id: 'ba3janoke', file: 'ba3janoke.mp3', image: 'ba3janoke.jpg', label: 'Ba3janoke', tags: ['psa'] },
     { id: 'datkama-ba3janoke', file: 'datkama ba3janoke - psa.ogg', image: 'ba3janoke.jpg', label: 'Datkama Ba3janoke', tags: ['psa'] },
     
-    // PSA Arguments / Extras
-    { id: 'bzrt-dakam-psa', file: 'Bzrt dakam - Psa + argument 1.3.ogg', image: 'psa.png', label: 'Bzrt dakam (Arg)', tags: ['psa'], isArgument: true },
-    { id: 'psa-excuse', file: 'psa excuse - psa argument.ogg', image: 'psa.png', label: 'PSA Excuse', tags: ['psa'], isArgument: true },
-    { id: 'awm-bde-extreme', file: 'Awm bde txwa Extreme - aland & psa.mp3', image: 'psa.png', label: 'Awm bde Extreme', tags: ['psa', 'aland'], isArgument: true },
+    // PSA Misc
+    { id: 'bzrt-dakam-psa', file: 'Bzrt dakam - Psa + argument 1.3.ogg', image: 'psa.png', label: 'Bzrt dakam', tags: ['psa'] },
 
 
     // ===================================
@@ -30,14 +31,19 @@ const sounds = [
     { id: 'kak-ashty', file: 'kak-ashty-lachen.mp3', image: 'aland.jpg', label: 'Kak Ashty lachendarin', tags: ['aland'] },
     { id: 'karox', file: 'karox-xayat.mp3', image: 'aland.jpg', label: 'Karox Xayat', tags: ['aland'] },
     
-    // Aland New / Arguments
-    { id: 'aland-arg-1', file: 'Aland - aland argument 1.1.ogg', image: 'aland.jpg', label: 'Argument 1.1', tags: ['aland'], isArgument: true },
+    // Awm Bde Sequence (Grouped together)
+    { id: 'awm-bde-txwa', file: 'Awm bde txwa - aland & psa.mp3', image: 'aland.jpg', label: 'Awm bde txwa', tags: ['aland'] },
+    { id: 'awm-bde-extreme', file: 'Awm bde txwa Extreme - aland & psa.mp3', image: 'aland.jpg', label: 'Awm bde txwa Extreme', tags: ['aland'] },
+
+    // Aland New
     { id: 'bzrt-dakam', file: 'bzrt dakam - Aland.ogg', image: 'aland.jpg', label: 'Bzrt dakam', tags: ['aland'] },
     { id: 'mizi-de', file: 'mizi de - Aland.ogg', image: 'aland.jpg', label: 'Mizi de', tags: ['aland'] },
     { id: 'mamosa-ahmad', file: 'mamosa ahamd.ogg', image: 'aland.jpg', label: 'Mamosa Ahmad', tags: ['aland'] },
-    { id: 'xoshim-dawei', file: 'xoshim dawei, la qbrt bm -Aland argument.ogg', image: 'aland.jpg', label: 'Xoshim dawei', tags: ['aland'], isArgument: true },
+    { id: 'xoshim-dawei', file: 'xoshim dawei, la qbrt bm -Aland argument.ogg', image: 'aland.jpg', label: 'Xoshim dawei', tags: ['aland'] },
     { id: 'baxot-ba3janokei', file: 'baxot ba3janokei - aland.ogg', image: 'ba3janoke.jpg', label: 'Baxot Ba3janokei', tags: ['aland'] },
-    { id: 'awm-bde-txwa', file: 'Awm bde txwa - aland & psa.mp3', image: 'aland.jpg', label: 'Awm bde txwa', tags: ['aland', 'psa'], isArgument: true },
+    
+    // Moved here from PSA Excuse - Renamed
+    { id: 'aland-threaten', file: 'psa excuse - psa argument.ogg', image: 'aland.jpg', label: 'Aland threaten', tags: ['aland'] },
 
 
     // ===================================
@@ -52,7 +58,6 @@ const sounds = [
     { id: 'meow', file: 'meow.mp3', image: 'cat.png', label: 'Meow', tags: ['shko'] },
     { id: 'meow-shko', file: 'meow-shko.mp3', image: 'cat.png', label: 'Meow Shko', tags: ['shko'] },
     { id: 'meow-2', file: 'meow-2.mp3', image: 'cat.png', label: 'Meow 2', tags: ['shko'] },
-    // Bram lo halnagri moved here with cat image
     { id: 'bram-lo-halnagri', file: 'bram lo halnagri.ogg', image: 'cat.png', label: 'Bram lo halnagri', tags: ['shko'] },
 ];
 
@@ -64,11 +69,9 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 let currentButtonId = null;
 
 // --- AUDIO CONTEXT SETUP ---
-// Using AudioContext ensures audio plays on mobile even if silent switch is sometimes tricky (though HTML5 Audio is used for source)
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const currentAudio = new Audio();
 currentAudio.crossOrigin = "anonymous"; 
-// Better mobile support:
 currentAudio.preload = "auto";
 
 const source = audioCtx.createMediaElementSource(currentAudio);
@@ -87,9 +90,7 @@ function renderGrid(filterType = 'all') {
         
         if (shouldShow) {
             const btn = document.createElement('div');
-            
-            // Add 'argument' class if isArgument is true
-            btn.className = `sound-btn ${sound.isArgument ? 'argument' : ''}`;
+            btn.className = 'sound-btn'; // No extra argument classes
             btn.id = sound.id;
             
             btn.innerHTML = `
@@ -104,7 +105,7 @@ function renderGrid(filterType = 'all') {
             `;
 
             btn.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent double-tap zoom issues
+                e.preventDefault(); 
                 playSound(sound);
             });
             grid.appendChild(btn);
@@ -122,7 +123,6 @@ filterBtns.forEach(btn => {
         btn.classList.add('active');
         renderGrid(btn.getAttribute('data-filter'));
         
-        // Haptic feedback for mobile (if supported)
         if (navigator.vibrate) navigator.vibrate(10);
     });
 });
